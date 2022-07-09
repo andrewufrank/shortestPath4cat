@@ -9,6 +9,7 @@ description:
     dijkstra code 
 dependencies:
   - base == 4.*
+  - containers
 #   - uniform-strings
 #   - uniform-convenience
 # #  - test-framework 

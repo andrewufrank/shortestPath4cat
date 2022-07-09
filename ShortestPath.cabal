@@ -22,6 +22,7 @@ library
   ghc-options: -Wall
   build-depends:
       base ==4.*
+    , containers
   default-language: Haskell2010
 
 executable foo
@@ -33,4 +34,5 @@ executable foo
   ghc-options: -Wall
   build-depends:
       base ==4.*
+    , containers
   default-language: Haskell2010

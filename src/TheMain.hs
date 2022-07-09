@@ -41,6 +41,30 @@ graph =
 
 -- Output:
 -- Just (3,'c')
+
+data Path a = Path {cost :: Int , trajectory :: [a]}
+    deriving (Show)
+
+instance Eq (Path a) where
+    a == b = cost a == cost b
+
+instance Ord (Path a) where
+    compare a b = compare (cost a) (cost b)
+
+
+-- Output:
+--     Just (Path {cost = 3, trajectory = "cba"},'c')
+
+tryItOutWithPath :: Maybe (Path Char, Char)
+tryItOutWithPath = dijkstra step 'c' (Path 0 ['a'] , 'a')
+    where
+        step :: (Path Char , Char) -> [(Path Char , Char)]
+        step (Path cost traj , node) =
+            [ (Path (cost + edgeCost) (child : traj) , child)
+            | (edgeCost , child) <- fromMaybe [] $ Map.lookup node graph
+            ]
+
+
 main1 = print $ dijkstra step 'c' (0 , 'a')
     where
         step :: (Int , Char) -> [(Int , Char)]
@@ -52,6 +76,7 @@ main1 = print $ dijkstra step 'c' (0 , 'a')
 main :: IO ()
 main =  do  -- with tests in other modules
     main1
+    print $ tryItOutWithPath
     -- dirMain
     -- openMain
     return ()
